@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -46,9 +46,8 @@
         <!-- department table format -->
         <div id="dept-table" class="hidden  rounded-lg overflow-hidden px-3 mt-2">
      
-            <table class="table table-dark table-bordered table-center  w-72 ml-7 mr-7 " 
-            style="font-size: 0.8rem;">
-      
+            <table class="table table-dark table-bordered table-center  w-72 ml-7 mr-7 "  style="font-size: 0.8rem;">
+                <h5 class="mb-2 mt-2 text-1xl text-white font-semibold text-center">Department Table</h5>
                 <thead>
                     <tr>
                         <th scope="col">Department ID</th>
@@ -61,6 +60,47 @@
                 <tbody id="dept-table-body"></tbody>
             </table>
         </div>
+         <!-- department modal edit table format  edit-department-->
+
+         <div class="modal fade" id="editDepartment" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"  id="exampleModalLabel">Edit and update department</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <ul id="editform_errorlist"></ul>
+                        <ul id="updateform_errorlist"></ul>
+                        <div id="success_message"></div>
+
+                        <div class="success_message'"></div>
+                        <input type="text" id="edit_deptid">
+                        <div class="form-group mb-3">
+                            <label>Department Name</label>
+                            <input type="text" id="editdeptname" class="deptname form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>HOD</label>
+                            <input type="text" id="editdepthod" class="depthod form-control">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn  btn-secondary" data-bs-dismiss="modal" >Close</button>
+                        <button type="button" class="btn  btn-primary update_department" >Update</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+         </div>
+         </form>
+
      
      <!-- course table format -->
      <form action="{{route('coursedata.submit')}}" method="POST">
@@ -68,8 +108,8 @@
      
         <div id="course-table" class="hidden  rounded-lg overflow-hidden px-3 mt-2 ">
      
-            <table class="table table-dark table-bordered table-center  w-72 ml-7 mr-7  " 
-                style="font-size: 0.8rem;">
+            <table class="table table-dark table-bordered table-center  w-72 ml-7 mr-7" style="font-size: 0.8rem;">
+                <h5 class="mb-2 mt-2 text-1xl text-white font-semibold text-center">Course Table</h5>
      
                 <thead>
                     <tr>
@@ -86,11 +126,13 @@
          
 
         <form action="{{ route('userdata.submit') }}" method="POST">
-            @csrf
+            @csrf   
         
         
             <div id="user-table" class="hidden rounded-lg overflow-hidden px-1">
-                    <table class="table table-dark table-bordered table-center" style="font-size: 0.8rem;">
+                    <table class="table table-dark table-bordered table-center" style="font-size: 0.7rem;">
+                        <h5 class="mb-2 mt-2 text-1xl text-white font-semibold text-center">User Table</h5>
+
                     <thead>
                         <tr>
                             <th>User ID</th>
@@ -132,10 +174,13 @@
 </form>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!--using ajax to display without reload the page DEPARTMEnt
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+
+    <!--using ajax to display without reload the page DEPARTMEnt--->
     <script src="{{ asset('js/department.js') }}"></script>
 
-    <script src="{{ asset('js/course.js') }}"></script>--->
+    <script src="{{ asset('js/course.js') }}"></script>
 
 
 
@@ -161,41 +206,50 @@
         $('#user-table').addClass('hidden');
         
     }
+    
         //departments ajax 
-        $(document).ready(function(){
+    $(document).ready(function(){
         $('#fetchdepartment').click(function(e){
-            e.preventDefault();
+
+            e.preventDefault()
             $('#dept-table-body').empty();//after displaying once so these data will be clear so that when we click again those row will not repaeted
             $('#sidebar').toggleClass('hidden');
-            hideAfterDisplay()//to hide this dept table when click course or others
-            $.ajax({
-                type:"POST",
-                url: "{{ route('departmentdata.submit') }}",                
-                data: {_token: "{{ csrf_token() }}"},
-                dataType:"json",
-                success:function(response){
-                    //console.log(response);
-                    $.each(response.$departments, function(index, value){
-                        var hod = value.hod !== null ? value.hod : 'N/A';
-                        var row = '<tr>' +
-                            '<td class="px-4 py-2">' + value.dept_id + '</td>' +
-                            '<td class="px-4 py-2">' + value.deptname + '</td>' +
-                            '<td class="px-4 py-2">' + hod + '</td>' +
-                            '<td class="px-4 py-2"><button type="button" value="" class="edit_dept bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg focus:outline-none">Edit</button></td>' +
-                            '<td class="px-4 py-2"><button type="button" class="delete_dept bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg focus:outline-none">Delete</button></td>' +
-                            '</tr>';
-                        $('#dept-table-body').append(row);
-                    });
-                    // Show the department table
-                    $('#dept-table').removeClass('hidden');
-                }
-
-                
-            });
+            DeptDisplay();
+            hideAfterDisplay();//to hide this dept table when click course or others
+           
         });
 
     });
+    function DeptDisplay() {
+    $('#dept-table-body').empty();//after displaying once so these data will be clear so that when we click again those row will not repaeted
 
+        $.ajax({
+            type:"POST",
+            url: "{{ route('departmentdata.submit') }}",                
+            data: {_token: "{{ csrf_token() }}"},
+            dataType:"json",
+            success:function(response){
+                //console.log(response);
+                $.each(response.$departments, function(index, value){
+                    var hod = value.hod !== null ? value.hod : 'N/A';
+                    var row = '<tr>' +
+                        '<td class="px-4 py-2">' + value.dept_id + '</td>' +
+                        '<td class="px-4 py-2">' + value.deptname + '</td>' +
+                        '<td class="px-4 py-2">' + hod + '</td>' +
+                        '<td class="px-4 py-2"><button type="button" value="'+value.dept_id+'" id="edit"  class="edit_dept bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg focus:outline-none">Edit</button></td>' +
+                        '<td class="px-4 py-2"><button type="button" value="'+value.dept_id+'" id="del" class="delete_dept bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg focus:outline-none">Delete</button></td>' +
+                        '</tr>';
+                    $('#dept-table-body').append(row);
+                });
+                // Show the department table
+                $('#dept-table').removeClass('hidden');
+            }
+
+            
+        });
+        }
+
+   
 
     //courses ajax 
     $(document).ready(function(){
@@ -204,36 +258,41 @@
             // Clear the existing table rows
            $('#course-table-body').empty();
            $('#sidebar').toggleClass('hidden');
-            hideAfterDisplay()//to hide this course table when click course or others
-            $.ajax({
-                type:"POST",
-                url: "{{ route('coursedata.submit') }}",
-                data: {_token: "{{ csrf_token() }}"},
-                dataType:"json",
-                success:function(response){
-                    //console.log(response);
-                    $.each(response.$courses, function(index, value){
-
-                        var row = '<tr>' +
-                            '<td class="px-4 py-2">' + value.course_id + '</td>' +
-                            '<td class="px-4 py-2">' + value.coursename + '</td>' +
-                            '<td class="px-4 py-2">' + value.duration + '</td>' +
-                            '<td class="px-4 py-2"><button type="button" value="" class="edit_dept bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg focus:outline-none">Edit</button></td>' +
-                            '<td class="px-4 py-2"><button type="button" class="delete_dept bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg focus:outline-none">Delete</button></td>' +
-                            '</tr>';
-                        $('#course-table-body').append(row);
-                    });
-                    // Show the department table
-                    $('#course-table').removeClass('hidden');
-                }
-
-                
-            });
-        });
+           CourseDisplay();
+            hideAfterDisplay();//to hide this course table when click course or others
+               });
 
     });
+    function CourseDisplay() {
+        $.ajax({
+            type:"POST",
+            url: "{{ route('coursedata.submit') }}",
+            data: {_token: "{{ csrf_token() }}"},
+            dataType:"json",
+            success:function(response){
+                //console.log(response);
+                $.each(response.$courses, function(index, value){
+
+                    var row = '<tr>' +
+                        '<td class="px-4 py-2">' + value.course_id + '</td>' +
+                        '<td class="px-4 py-2">' + value.coursename + '</td>' +
+                        '<td class="px-4 py-2">' + value.duration + '</td>' +
+                        '<td class="px-4 py-2"><button type="button" value="" class="edit_course bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg focus:outline-none">Edit</button></td>' +
+                        '<td class="px-4 py-2"><button type="button" class="delete_dept bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg focus:outline-none">Delete</button></td>' +
+                        '</tr>';
+                    $('#course-table-body').append(row);
+                });
+                // Show the department table
+                $('#course-table').removeClass('hidden');
+            }
+
+            
+        });
+    }
+
 
     //Userdata ajax 
+    
     $(document).ready(function(){
     $('#fetchuser').click(function(e){
         e.preventDefault();
@@ -265,7 +324,7 @@
                         '<td class="px-1 py-2">' + value.rolefk + '</td>' +
                         '<td class="px-1 py-2">' + value.course + '</td>' +
                         '<td class="px-1 py-2">' + value.department + '</td>' +
-                        '<td class="px-1 py-2"><button type="button" value="" class="edit_dept bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg focus:outline-none">Edit</button></td>' +
+                        '<td class="px-1 py-2"><button type="button" value="" class="edit_user bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg focus:outline-none">Edit</button></td>' +
                         '<td class="px-1 py-2"><button type="button" class="delete_dept bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg focus:outline-none">Delete</button></td>' +
                         '</tr>';
                     $('#user-table-body').append(row);
@@ -276,11 +335,82 @@
         });
     });
 });
+
+//for edit form using modal to get the data into the form
+$(document).on('click','.edit_dept',function(e){
+    e.preventDefault();
+    var deptId=$(this).val();//to the id of department when click edit
+    //console.log(deptId);
+    //using the modal() as dailog form for edit
+    $('#editDepartment').modal('show');
+    $.ajax({
+        type:"GET",
+        url:"/edit-department/"+deptId,
+        success:function(response){
+            //console.log(response);
+            if(response.status == 404){
+
+                $('#updateform_errorlist').html("");
+                $('#success_message').addClass('alert alert danger');
+                $('#success_message').text(response.message);
+
+            }
+            else{
+                $('#editdeptname').val(response.departmentdata.deptname);
+                $('#editdepthod').val(response.departmentdata.hod);
+                $('#edit_deptid').val(deptId);
+            }
+        },
+
+    });
+    //to update
+    $(document).on('click', '.update_department', function(e) {
+    e.preventDefault();
+    var deptid = $('#edit_deptid').val(); // Get the department ID from the hidden input field
+
+    var data = {
+        'dept_name': $('#editdeptname').val(),
+        'HOD_ofdept': $('#editdepthod').val(),
+    };
+
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $.ajax({
+        type: "PUT", // Use PUT method for updating
+        url: "/update-department/" + deptid, // Pass the department ID in the URL
+        data: data, // Pass department data in the request body
+        dataType: "json",
+        success: function(response) {
+            // Handle success response
+            if (response.status == 404) {
+                $('#updateform_errorlist').html("");
+                $('#success_message').addClass('alert alert-danger');
+                $('#success_message').text(response.message);
+
+            } else {
+                $('#updateform_errorlist').html("");
+                $('#success_message').html("");
+                $('#success_message').addClass('alert alert-danger');
+                $('#success_message').text(response.message);
+                $('#editDepartment').modal('hide');
+                DeptDisplay();
+
+            }
+        },
+        
+    });
+
+});
+
+    
+});
+
 </script>
         
         
         
 </body>
 </html>
-=======
->>>>>>> 99ad6b3 (updating)
