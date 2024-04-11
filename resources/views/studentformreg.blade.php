@@ -8,48 +8,45 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>student register forms</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/registerstyle.css">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
     </head>
-    <body>
-        <nav class=" p-3 bg-blue-200 ">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-              </svg>
-        </nav>
-    
-       <div class=" bg-blue-100 flex justify-center h-screen">
+    <body class="bg-gray-800 h-screen">
             <form action="{{ route('studentregform.submit') }}" method ="POST" > 
                 @csrf
-                <div class=" mt-10  w-96 p-14 bg-blue-200 ">
-                    <h1 class=" text-left  mb-1 text-2xl font-semibold">Student Registration</h1>
-                    <div class="mt-10">
-                   
-                        <label for="name" class=" text-black font-medium p-6  mr-6">Name</label>
-                        <input type="text" name ="stname" required class="border border-black "><br><br>
+                    <h1 class=" text-center mb-10 mt-auto text-2xl font-bold  text-white">Student Registration</h1>
+                        <label for="firstname" class=" text-white text-left font-serif text-1xl">First Name</label>
+                        <input type="text" name ="stfirstname" required class="border border-black "><br><br>
 
-                        <label for="name" class=" text-black font-medium  p-6  mr-6">Rollno</label>
+                        <label for="middlename" class=" text-white text-left font-serif text-1xl">Middle Name</label>
+                        <input type="text" name ="stmidname" class="border border-black "><br><br>
+
+                        <label for="lastname" class=" text-white text-left font-serif text-1xl">Last  Name</label>
+                        <input type="text" name ="stlastname" required class="border border-black "><br><br>
+                    
+
+                    
+                        <label for="name" class=" text-white text-left font-serif text-1xl">Rollno</label>
                         <input type="text" name ="rollno" required class="border border-black "><br><br>
 
-                        <label for="name" class=" text-black font-medium  p-6  mr-6">Phone Number</label>
+                        <label for="name"  class=" text-white text-left font-serif text-1xl">Phone Number</label>
                         <input type="text" name ="phno" required class="border border-black "><br><br>
                                 
-                        <label for="name" class=" text-black font-medium  p-6  mr-6">Email(Username)</label>
+                        <label for="name" class=" text-white text-left font-serif text-1xl">Email(Username)</label>
                         <input type="text" name ="email" required class="border border-black "><br><br>
 
-                        <label for="name" class=" text-black font-medium  p-6  mr-6">Password</label>
+                        <label for="name"  class=" text-white text-left font-serif text-1xl">Password</label>
                         <input type="password" name ="password" placeholder="8 character" class="border border-black" ><br><br>
                            
-                        <label for="name" class=" text-black font-medium  p-6  mr-6">Retype password</label>
+                        <label for="name"   class=" text-white text-left font-serif text-1xl">Retype password</label>
                         <input type="password" name ="retype" class="border border-black " ><br><br>
 
-                        <label for="name" class=" text-black font-medium p-6  mr-6">Date of Birth</label>
+                        <label for="name" class=" text-white text-left font-serif text-1xl">Date of Birth</label>
                         <input type="date" name ="dob"class="border border-black "><br><br>
                            
-                        <label for="name" class=" text-black font-medium    mr-6 p-6">Address</label>
+                        <label for="name" class=" text-white text-left font-serif text-1xl">Address</label>
                         <input type="text" name ="address" required class="border border-black "><br><br>
                           
-                        <label for="name" class=" text-black font-medium  p-6  mr-6">Semester</label>
+                        <label for="name"  class=" text-white text-left font-serif text-1xl">Semester</label>
                             
                         <select name ="sem" required class=" bg-white border border-black mt-2">
                             <option value="" selected>Choose a Semester..</option>
@@ -61,7 +58,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <option value="6">6th Semester</option>
                          </select><br><br>
                        
-                        <label for="name" class="mt-9 text-black font-medium p-6  mr-6">Course</label>
+                        <label for="name"  class=" text-white text-left font-serif text-1xl">Course</label>
                             
                         <select name ="course" required class="  bg-white mt-1 border border-black">
                                 <option value="" selected>Choose a course..</option>
@@ -71,10 +68,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     
                         </select><br><br>
                             
-                        <label for="name" class="  text-black font-medium  p-6  mr-6">Year Of admission</label>
+                        <label for="name" class=" text-white text-left font-serif text-1xl">Year Of admission</label>
                         <input type="text" name ="yearofad" required class="border border-black mt-1"><br><br>
                      
-                        <label for="name" class=" text-black font-medium p-6  mr-6">Gender</label>
+                        <label for="gen"  class=" text-white text-left font-serif text-1xl">Gender</label>
                          
                         <select name ="gender" class=" bg-white mt-1 border border-black">
                             <option value=""></option>
@@ -84,10 +81,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                        
                         <button type="submit" name ="save" value="Ok" class="px-10 text-black mt-6 ml-6 bg-pink-200 focus:ring-4 rounded-lg text-1xl p-2 text-center">Save</button><br>
                        
-                    </div>
-                </div>
-            </form>
+                  
+                </form>
 
-        </div>
-    </body>
+</body>
 </html>

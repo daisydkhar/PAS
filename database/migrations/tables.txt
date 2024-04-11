@@ -1,0 +1,155 @@
+1.Departments
+    $table->id('dept_id');
+    $table->string('deptname');
+    $table->unsignedBigInteger('hod')->nullable();
+
+2.courses
+    $table->id('course_id');
+    $table->string('coursename');
+    $table->string('duration');
+    $table->unsignedBigInteger('dept_fk');
+    $table->foreign('dept_fk')->references('dept_id')->on('departments')->onDelete('cascade')->onUpdate('cascade');
+
+3.Students
+    $table->id('stid');
+    $table->string('rollno',20);
+    $table->string('firstname',20);
+    $table->string('middlename',20)->nullable();
+    $table->string('lastname',20);
+    $table->string('stemail');
+    $table->string('stpassword',18);
+    $table->string('semester',10);
+    $table->string('phno',10);
+    $table->string('address',20);
+    $table->string('dob');
+    $table->string('yearOfAd');
+    $table->string('gender',10);
+    $table->unsignedBigInteger('coursefk'); // Define as unsignedBigInteger to match courses table
+    $table->foreign('coursefk')->references('course_id')->on('courses')->onDelete('cascade')->onUpdate('cascade'); // Reference course_id column in courses table
+    
+4.Teachers
+    $table->id('tid');
+    $table->string('tfirstname',20);
+    $table->string('middlename',20)->nullable();
+    $table->string('tlastname',20);
+    $table->string('temail',50);
+    $table->string('tpassword',18);
+    $table->string('tphno',10);
+    $table->string('taddress',10);
+    $table->string('tdob');
+    $table->unsignedBigInteger('deptfk');
+    $table->foreign('deptfk')->references('dept_id')->on('departments')->onDelete('cascade')->onUpdate('cascade');
+
+
+5.Userdata
+    $table->id('userId');
+    $table->string('name');//for session
+    $table->string('email');
+    $table->string('password');
+    $table->string('type');
+6.Papers
+    $table->id('paper_id');
+    $table->string('pname',30);
+    $table->string('semester',10);
+    $table->string('theory',2);
+    $table->string('practical',2);
+    $table->string('IA',2);
+    $table->string('total',3);
+    $table->unsignedBigInteger('pcoursefk');
+    $table->foreign('pcoursefk')->references('course_id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
+    $table->unsignedBigInteger('pteacherfk');
+    $table->foreign('pteacherfk')->references('tid')->on('teachers')->onDelete('cascade')->onUpdate('cascade');
+
+          
+
+7.attendances
+    $table->id('attendid');
+    $table->string('monthyear'); 
+    $table->integer('totalclasses');
+    $table->integer('classesattended');
+    $table->float('attendance-percentage');
+    $table->unsignedBigInteger('tidfk');
+    $table->unsignedBigInteger('stidfk');
+    $table->unsignedBigInteger('pidfk');
+    $table->foreign('tidfk')->references('tid')->on('teachers')->onDelete('cascade');
+    $table->foreign('stidfk')->references('stid')->on('students')->onDelete('cascade');
+    $table->foreign('pidfk')->references('paper_id')->on('papers')->onDelete('cascade');
+         
+8.Test 
+    $table->id('testid');
+    $table->date('testdate')->default(DB::raw('CURDATE()'));
+          
+9.Test_record
+    $table->id('testrecord');
+    $table->float('score');
+    $table->unsignedBigInteger('studentIdfk');
+    $table->foreign('studentIdfk')->references('stid')->on('students')->onDelete('cascade')->onUpdate('cascade');
+    $table->unsignedBigInteger('paperIdfk');
+    $table->foreign('paperIdfk')->references('paper_id')->on('papers')->onDelete('cascade')->onUpdate('cascade');
+    $table->unsignedBigInteger('testIdfk');
+    $table->foreign('testIdfk')->references('testid')->on('tests')->onDelete('cascade')->onUpdate('cascade');
+    $table->float('totalIA');
+
+
+ $department = Department::select('dept_id', 'deptname', 'hod')->get();
+       $html = '<table>';
+       $html .= '<thead><tr><th>Department ID</th><th>Department Name</th><th>Head of Department</th></tr></thead>';
+       $html .= '<tbody>';
+       
+       foreach ($department as $department) {
+           $html .= '<tr>';
+           $html .= '<td>' . $department->dept_id . '</td>';
+           $html .= '<td>' . $department->deptname . '</td>';
+           $html .= '<td>' . $department->hod . '</td>';
+           $html .= '</tr>';
+       }
+       
+       $html .= '</tbody>';
+       $html .= '</table>';
+
+       // Return the HTML table markup
+       return $html;
+   
+
+script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--using ajax to display without reload the page DEPARTMENT-->
+<script>
+                
+    $(document).ready(function(){
+        $('#fecthdepartment').click(function(e){
+            e.preventDefault();
+            $.ajax({
+                type:"POST",
+                url: "{{ route('admin.submit') }}",
+                data: {_token: "{{ csrf_token() }}"},
+                dataType:"json",
+                success:function(response){
+                    //console.log(response);
+                    $.each(response.$departments, function(index, value){
+                        var hod = value.hod !== null ? value.hod : 'N/A';
+                        var row = '<tr>' +
+                            '<td class="px-4 py-2">' + value.dept_id + '</td>' +
+                            '<td class="px-4 py-2">' + value.deptname + '</td>' +
+                            '<td class="px-4 py-2">' + hod + '</td>' +
+                            '<td class="px-4 py-2"><button type="button" value="" class="edit_dept bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg focus:outline-none">Edit</button></td>' +
+                            '<td class="px-4 py-2"><button type="button" class="delete_dept bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-lg focus:outline-none">Delete</button></td>' +
+                            '</tr>';
+                        $('#dept-table-body').append(row);
+                    });
+                    // Show the department table
+                    $('#dept-table').removeClass('hidden');
+                }
+
+                
+            });
+        });
+
+    });
+
+    </script>
+
+
+
+
+  
+           

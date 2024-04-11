@@ -3,8 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
-
 
 return new class extends Migration
 {
@@ -15,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tests', function (Blueprint $table) {
-            $table->id('test-id');
-            $table->date('test-date')->default(DB::raw('CURDATE()'));
+        Schema::table('tests', function (Blueprint $table) {
+            $table->time('test_time')->nullable()->after('testdate');
 
-            $table->timestamps();
         });
     }
 
@@ -30,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tests');
+        Schema::table('tests', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -17,8 +17,13 @@ class Registercontroller extends Controller
         }elseif($type ==='teacher'){
             return view('teacherform');
 
+        }elseif($type ==='admins'){
+            return view('adminstrationform');
+
         }else{
             echo"error page not found";
         }
     }
+
+    
 }

@@ -17,19 +17,19 @@ return new class extends Migration
             $table->id('st-id');
             $table->string('rollno',20);
             $table->string('firstname',20);
-            $table->string('middlename',20);
+            $table->string('middlename',20)->nullable();
             $table->string('lastname',20);
-            $table->string('st-email',20);
-            $table->string('st-password',18);
+            $table->string('stemail');
+            $table->string('stpassword',18);
             $table->string('semester',10);
             $table->string('phno',10);
             $table->string('address',20);
             $table->string('dob');
             $table->string('yearOfAd');
             $table->string('gender',10);
-            $table->unsignedBigInteger('course-fk'); // Define as unsignedBigInteger to match courses table
-            $table->foreign('course-fk')->references('course_id')->on('courses')->onDelete('cascade')->onUpdate('cascade'); // Reference course_id column in courses table
-
+            $table->unsignedBigInteger('coursefk'); // Define as unsignedBigInteger to match courses table
+            $table->foreign('coursefk')->references('course_id')->on('courses')->onDelete('cascade')->onUpdate('cascade'); // Reference course_id column in courses table
+            
             $table->timestamps();
         });
     }

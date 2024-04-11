@@ -15,19 +15,16 @@ return new class extends Migration
     {
         Schema::create('papers', function (Blueprint $table) {
             $table->id('paper_id');
-            $table->string('p-name',30);
+            $table->string('pname',30);
             $table->string('semester',10);
             $table->string('theory',2);
             $table->string('practical',2);
             $table->string('IA',2);
             $table->string('total',3);
-            $table->unsignedBigInteger('p-coursefk');
-            $table->foreign('p-coursefk')->references('course_id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('p-teacherfk');
-            $table->foreign('p-teacherfk')->references('t-id')->on('teachers')->onDelete('cascade')->onUpdate('cascade');
-
-
-
+            $table->unsignedBigInteger('pcoursefk');
+            $table->foreign('pcoursefk')->references('course_id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('pteacherfk');
+            $table->foreign('pteacherfk')->references('tid')->on('teachers')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
