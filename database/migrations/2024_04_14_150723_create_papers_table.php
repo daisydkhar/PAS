@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('papers', function (Blueprint $table) {
-            $table->id('paper_id');
+            $table->string('paper_id', 10)->primary();
             $table->string('pname',30);
             $table->string('semester',10);
             $table->string('theory',2);

@@ -14,11 +14,25 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->id('userID');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('firstname',20);
+            $table->string('middlename',20)->nullable();
+            $table->string('lastname',20);
+            $table->string('phno',10);
+            $table->string('address',20);
+            $table->string('dob');
+            $table->string('gender',10);
+            $table->string('yearOfAd')->nullable();
+            $table->string('rollno', 20)->nullable();
+            $table->string('semester', 10)->nullable();
+            $table->string('yearofJoining', 10)->nullable();
+
+
+         
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -9,21 +9,24 @@ class Registercontroller extends Controller
     //
     //only when the user click student
     public function registers (Request $request){
-        $type = $request->input('type');
-       //dd($type);
-        if ($type === 'student') {
+        $role = $request->input('role');
+     //  dd($role);
+        if ($role === '1') {
             // Redirect to the student registration form
             return view('studentformreg');
-        }elseif($type ==='teacher'){
+        }elseif($role === '2'){
             return view('teacherform');
 
-        }elseif($type ==='admins'){
+        }elseif($role === '3'){
             return view('adminstrationform');
 
         }else{
-            echo"error page not found";
+           // echo"error page not found";
+           return redirect()->back()->with('error', 'Invalid role selected');
+
         }
     }
 
     
 }
+

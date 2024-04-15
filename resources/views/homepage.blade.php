@@ -20,11 +20,11 @@
             <form  method="POST" action="{{ route('registration.submit') }}">
                 @csrf
                 <div class="ml-96 ">
-                    <select name="type" class="mr-1 bg-blue-200 border border-black w-40">
+                    <select name="role" class="mr-1 bg-blue-200 border border-black w-40">
                         <option>Registration Type</option>
-                        <option value="student" class=" font-medium">Student</option>
-                        <option value="teacher" class=" font-medium">Teacher</option>
-                        <option value="admins" class=" font-medium">Admins</option>
+                        <option value="1" class=" font-medium">Student</option>
+                        <option value="2" class=" font-medium">Teacher</option>
+                        <option value="3" class=" font-medium">Admins</option>
                     </select>
                 <button type="submit" class=" text-black   ml-30 w-10">Register</button>
 
@@ -48,8 +48,8 @@
             <img class="w-1/2  bg-blue-200" src="image/logii.png" alt="image description">
             <div class="w-1/2 p-6 bg-blue-100">
 
-            <form  action="{{ route('login.submit')}}" method="POST"  class="max-w-sm mx-auto" }}>
-                <p class="text-black mt-10 ml-10 text-xl font-bold"><span class="italic"> Welcome to the website</span></p>
+                <form method="POST" action="{{ route('login.submit') }}" class="max-w-sm mx-auto">
+                    <p class="text-black mt-10 ml-10 text-xl font-bold"><span class="italic"> Welcome to the website</span></p>
                 @csrf
                 <div class="mt-10 mb-0">
                    

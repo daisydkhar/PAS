@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
-use App\Models\Userdata;
+use App\Models\User;
 
 class Studentcontroller extends Controller
 {
@@ -31,12 +31,21 @@ class Studentcontroller extends Controller
         $stob->coursefk=$request->input('course');
         $stob->save();
 
-        //to store the email and password to usedata for login
-        $userob = new Userdata();
-        $userob->name= $request->input('stfirstname');
-        $userob->email = $request->input('email');
-        $userob->password = $request->input('password');
-        $userob->type = 'student'; // Set the user type to 'student'
+        //to store student data for login
+        $userob = new User();
+        $userob->firstname= $request->input('stfirstname');
+        $userob->middlename= $request->input('stmiddlename');
+        $userob->lastname= $request->input('stlastname');
+        $userob->email= $request->input('email');
+        $userob->password=$request->input('password');
+        $userob->semester=$request->input('sem');
+        $userob->phno=$request->input('phno');
+        $userob->address=$request->input('address');
+        $userob->dob=$request->input('dob');
+        $userob->yearOfAd=$request->input('yearofad');
+        $userob->gender=$request->input('gender');
+        $userob->course=$request->input('course');
+        $userob->rolefk = '1';
         $userob->save();
         return redirect('/');
 

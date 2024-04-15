@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tests', function (Blueprint $table) {
-            $table->time('test_time')->nullable()->after('testdate');
-
+        Schema::table('teachers', function (Blueprint $table) {
+            //
+            $table->string('gender',10);
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tests', function (Blueprint $table) {
+        Schema::table('teachers', function (Blueprint $table) {
             //
         });
     }

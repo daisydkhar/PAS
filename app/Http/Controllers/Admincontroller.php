@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Userdata;
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Department;
 use App\Models\Course;
@@ -20,7 +20,7 @@ class Admincontroller extends Controller
             'password'=>'required|min:8',
         ]);
 
-        $adminob=new Admin();
+        /*$adminob=new Admin();
         $adminob->firstname=$request->input('firstname');
         $adminob->middlename=$request->input('middlename');
         $adminob->lastname=$request->input('lastname');
@@ -29,15 +29,23 @@ class Admincontroller extends Controller
         $adminob->phno=$request->input('phno');
         $adminob->role=$request->input('role');
         $adminob->address=$request->input('address');
-        $adminob->save();
+        $adminob->save();*/
 
         //to store the email and password to usedata for login
-        $userob = new Userdata();
-        $userob->name = $request->input('firstname');
-        $userob->email = $request->input('email');
-        $userob->password = $request->input('password');
-        $userob->type = 'admin'; 
+        $userob = new User();
+        $userob->firstname=$request->input('firstname');
+        $userob->middlename=$request->input('middlename');
+        $userob->lastname=$request->input('lastname');
+        $userob->email=$request->input('email');
+        $userob->password=$request->input('password');
+        $userob->phno=$request->input('phno');
+        $userob->address=$request->input('address');
+        $userob->dob=$request->input('dob');
+        $userob->gender=$request->input('gender');
+        $userob->yearOFJoining=$request->input('yearofjoining');
+        $userob->rolefk = '3';
         $userob->save();
+        return redirect('/');
 
     }
 
@@ -60,8 +68,7 @@ class Admincontroller extends Controller
     }
 
     public function coursedata(Request $request){
-
-        // Fetch department data from the database
+        // Fetch course data from the database
         $coursedatas = Course::select('course_id', 'coursename', 'duration')->get();
         //return response()->json($coursedatas);
 
@@ -72,19 +79,34 @@ class Admincontroller extends Controller
 
     }
 
-    public function useraccount(Request $request){
-
-        // Fetch department data from the database
-        $userdatas = Userdata::select('userId', 'name', 'email','password','type')->get();
-        //return response()->json($userdatas);
-
-        // Return the department data as JSON response
-        return response()->json([
-           '$users'=>$userdatas,
-        ]);
+    public function userdata(Request $request){
+        
+            $userData = User::select(
+                'userID',
+                'email',
+                'password',
+                'firstname',
+                'middlename',
+                'lastname',
+                'phno',
+                'address',
+                'dob',
+                'gender',
+                'yearOfAd',
+                'rollno',
+                'semester',
+                'yearofJoining',
+                'rolefk',
+                'course',
+                'department'
+            )->get();
+        
+            return response()->json([
+                '$userdata' => $userData,
+            ]);
+        }
+        
 
     }
-     
-}
 
 

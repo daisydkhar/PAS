@@ -23,11 +23,10 @@ return new class extends Migration
             $table->string('tphno',10);
             $table->string('taddress',10);
             $table->string('tdob');
-            $table->string('gender',10);
+            $table->string('yearOFJoining');
             $table->unsignedBigInteger('deptfk');
             $table->foreign('deptfk')->references('dept_id')->on('departments')->onDelete('cascade')->onUpdate('cascade');
-
-
+        
             $table->timestamps();
         });
     }

@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'dept_id'; 
+    protected $primaryKey = 'dept_id';//laravel default primary key column name is id 
+
 }

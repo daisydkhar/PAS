@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
         <nav class=" p-6 bg-black ">
         </nav>
-        <div class="bg-black  h-screen ">
+        <div class="bg-white  h-screen ">
            
             
             <div class=" mb-2  w-auto h-100  p-5  " >
@@ -67,6 +67,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
+
+                        <label for="name" class=" text-black text-left font-serif text-1xl">Year Of joining</label>
+                        <input type="text" name ="yearofjoining" required class="border border-black mt-1"><br><br>
+                     
                    
 
                          

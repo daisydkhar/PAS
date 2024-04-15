@@ -15,17 +15,15 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id('attendid');
-            $table->string('monthyear'); 
-            $table->integer('totalclasses');
-            $table->integer('classesattended');
-            $table->float('attendance-percentage');
+            $table->date('testdate')->default(DB::raw('CURDATE()'));
+            $table->string('status');
             $table->unsignedBigInteger('tidfk');
             $table->unsignedBigInteger('stidfk');
-            $table->unsignedBigInteger('pidfk');
+            $table->string('pidfk', 10);
             $table->foreign('tidfk')->references('tid')->on('teachers')->onDelete('cascade');
             $table->foreign('stidfk')->references('stid')->on('students')->onDelete('cascade');
             $table->foreign('pidfk')->references('paper_id')->on('papers')->onDelete('cascade');
-           
+        
             $table->timestamps();
         });
     }

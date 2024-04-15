@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id('st-id');
+            $table->id('stid');
             $table->string('rollno',20);
             $table->string('firstname',20);
             $table->string('middlename',20)->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('gender',10);
             $table->unsignedBigInteger('coursefk'); // Define as unsignedBigInteger to match courses table
             $table->foreign('coursefk')->references('course_id')->on('courses')->onDelete('cascade')->onUpdate('cascade'); // Reference course_id column in courses table
-            
+        
             $table->timestamps();
         });
     }

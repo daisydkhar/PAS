@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tests', function (Blueprint $table) {
-            $table->id('testid');
-            $table->date('testdate')->default(DB::raw('CURDATE()'));
-   
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->unsignedBigInteger('rolefk');
+            $table->foreign('rolefk')->references('role_id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
@@ -28,6 +28,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tests');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

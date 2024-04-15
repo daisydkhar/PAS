@@ -38,17 +38,24 @@
 
         <label for="phno" class=" text-black font-medium mr-6  p-4">Phone Number</label>
         <input type="text" name ="phno" required class="border border-black mt-6"><br><br>
-        
 
-        <label for="role"  class=" text-black font-medium mr-6 p-4">Role</label>
-        <select name ="role" class=" bg-white mt-1 border border-black">
-            <option value=""></option>
-            <option value="teacher">Teacher</option>
-            <option value="non-teaching Staff">Non teaching</option>
-        </select><br><br>
-
+        <label for="dob" class=" text-black font-medium mr-6 ">Date of Birth</label>
+        <input type="date" name ="dob" class="border border-black mt-6"><br><br>
+       
         <label for="address" class=" text-black font-medium mr-6 p-5">Address</label>
         <input type="text" name ="address" class="border border-black mt-6"><br><br>
+
+        <label for="gen"  class=" text-black text-left font-serif text-1xl">Gender</label>
+        <select name ="gender" class=" bg-white mt-1 border border-black">
+            <option value=""></option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <label for="name" class=" text-black text-left font-serif text-1xl">Year Of joining</label>
+                        <input type="text" name ="yearofjoining" required class="border border-black mt-1"><br><br>
+                     
+
 
         <button type="submit" name ="save" value="Ok" class="px-10 text-white mt-6 ml-6 bg-blue-900 focus:ring-4 rounded-lg text-1xl p-2 text-center">Save</button>
 

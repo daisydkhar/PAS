@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('test_records', function (Blueprint $table) {
-            $table->id('testrecord');
-            $table->float('score');
+        Schema::create('tests', function (Blueprint $table) {
+
+            $table->string('testid', 10)->primary();
+            $table->date('testdate')->default(DB::raw('CURDATE()'));
+            $table->float('score')->nullable();
+            $table->float('totalIA')->nullable();
             $table->unsignedBigInteger('studentIdfk');
             $table->foreign('studentIdfk')->references('stid')->on('students')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('paperIdfk');
+            $table->string('paperIdfk');
             $table->foreign('paperIdfk')->references('paper_id')->on('papers')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('testIdfk');
-            $table->foreign('testIdfk')->references('testid')->on('tests')->onDelete('cascade')->onUpdate('cascade');
-            $table->float('totalIA');
-
+        
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('test_records');
+        Schema::dropIfExists('tests');
     }
 };

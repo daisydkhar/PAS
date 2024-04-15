@@ -2,6 +2,17 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Registercontroller;
+use App\Http\Controllers\Studentcontroller;
+use App\Http\Controllers\Teachercontroller;
+use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\Logincontroller;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,29 +25,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/dashboard', function () {
+
+/*Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';*/
-Route::post('/', function () {
+
+Route::get('/', function () {
     return view('homepage');
 });
 
 //to register
 Route::post('/toregister', [Registercontroller::class, 'registers'])->name('registration.submit');//chosing type and to redirect
-Route::post('/toregister', [Registercontroller::class, 'registers'])->name('registration.submit');//chosing type and to redirect
-Route::post('/toregister', [Registercontroller::class, 'registers'])->name('registration.submit');//chosing type and to redirect
+
+
+//to customise login:
+Route::post('/login', [Logincontroller::class,'login'])->name('login.submit');
+
+
 
 //to fill form & store data to table
 Route::post('/studentregistration', [Studentcontroller::class, 'studentdata'])->name('studentregform.submit');
@@ -50,7 +65,9 @@ Route::post('/login', [Logincontroller::class,'login'])->name('login.submit');
 Route::post('/admin', [Admincontroller::class,'logout'])->name('admin.submit');//logout
 Route::post('/departmentdata', [Admincontroller::class,'deptdata'])->name('departmentdata.submit');//fajax fecth data from db to page
 Route::post('/coursedata', [Admincontroller::class,'coursedata'])->name('coursedata.submit');
-Route::post('/userdata', [Admincontroller::class,'coursedata'])->name('userdata.submit');
+Route::post('/userdata', [Admincontroller::class, 'userdata'])->name('userdata.submit');
+
+
 
 
 

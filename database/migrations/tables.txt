@@ -37,18 +37,18 @@
     $table->string('tphno',10);
     $table->string('taddress',10);
     $table->string('tdob');
+    $table->string('yearOFJoining');
     $table->unsignedBigInteger('deptfk');
     $table->foreign('deptfk')->references('dept_id')->on('departments')->onDelete('cascade')->onUpdate('cascade');
 
 
-5.Userdata
-    $table->id('userId');
-    $table->string('name');//for session
-    $table->string('email');
-    $table->string('password');
-    $table->string('type');
+5.role
+    $table->id('role_id');
+    $table->string('name');
+    
 6.Papers
-    $table->id('paper_id');
+    //$table->id('paper_id');
+    $table->string('paper_id', 10)->primary()
     $table->string('pname',30);
     $table->string('semester',10);
     $table->string('theory',2);
@@ -60,14 +60,33 @@
     $table->unsignedBigInteger('pteacherfk');
     $table->foreign('pteacherfk')->references('tid')->on('teachers')->onDelete('cascade')->onUpdate('cascade');
 
+* user for all the user:
+
+             $table->id('userID');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->string('firstname',20);
+            $table->string('middlename',20)->nullable();
+            $table->string('lastname',20);
+            $table->string('phno',10);
+            $table->string('address',20);
+            $table->string('dob');
+            $table->string('gender',10);
+            $table->string('yearOfAd')->nullable();
+            $table->string('rollno', 20)->nullable();
+            $table->string('semester', 10)->nullable();
+            $table->string('yearofJoining', 10)->nullable();
+            $table->unsignedBigInteger('rolefk');
+            $table->foreign('rolefk')->references('role_id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
+
+
           
 
 7.attendances
     $table->id('attendid');
-    $table->string('monthyear'); 
-    $table->integer('totalclasses');
-    $table->integer('classesattended');
-    $table->float('attendance-percentage');
+    $table->date('testdate')->default(DB::raw('CURDATE()'));
+    $table->string('status');
     $table->unsignedBigInteger('tidfk');
     $table->unsignedBigInteger('stidfk');
     $table->unsignedBigInteger('pidfk');
@@ -76,19 +95,39 @@
     $table->foreign('pidfk')->references('paper_id')->on('papers')->onDelete('cascade');
          
 8.Test 
-    $table->id('testid');
+    $table->string('testid', 10)->primary()
     $table->date('testdate')->default(DB::raw('CURDATE()'));
-          
-9.Test_record
-    $table->id('testrecord');
-    $table->float('score');
+    $table->float('score')->nullable();
+    $table->float('totalIA')->nullable();
     $table->unsignedBigInteger('studentIdfk');
     $table->foreign('studentIdfk')->references('stid')->on('students')->onDelete('cascade')->onUpdate('cascade');
     $table->unsignedBigInteger('paperIdfk');
     $table->foreign('paperIdfk')->references('paper_id')->on('papers')->onDelete('cascade')->onUpdate('cascade');
-    $table->unsignedBigInteger('testIdfk');
-    $table->foreign('testIdfk')->references('testid')->on('tests')->onDelete('cascade')->onUpdate('cascade');
-    $table->float('totalIA');
+
+9.          
+    $table->id('adminId');
+    $table->string('firstname',20);
+    $table->string('middlename',20)->nullable();
+    $table->string('lastname',20);
+    $table->string('stemail');;
+    $table->string('lastname',20);
+    $table->string('email');
+    $table->string('password');
+    $table->string('role',30);//as in the teacher or the non teaching staff can be admin
+    $table->string('phno',11);
+    $table->string('address',50);
+           
+    $adminob=new Admin();
+        $adminob->firstname=$request->input('firstname');
+        $adminob->middlename=$request->input('middlename');
+        $adminob->lastname=$request->input('lastname');
+        $adminob->email=$request->input('email');
+        $adminob->password=$request->input('password');
+        $adminob->phno=$request->input('phno');
+        $adminob->role=$request->input('role');
+        $adminob->address=$request->input('address');
+        $adminob->save();
+          
 
 
  $department = Department::select('dept_id', 'deptname', 'hod')->get();
@@ -152,4 +191,5 @@ script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
   
-           
+           /to login:
+//Route::post('/login', [Logincontroller::class,'login'])->name('login.submit');

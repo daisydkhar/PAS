@@ -245,3 +245,19 @@
         
 </body>
 </html>
+
+
+'<td class="px-4 py-2">' + value.userId + '</td>' +
+                            '<td class="px-4 py-2">' + value.firstname + '</td>' +
+                            '<td class="px-4 py-2">' + value.middlename + '</td>' +
+                            '<td class="px-4 py-2">' + value.lastname + '</td>' +
+                            '<td class="px-4 py-2">' + value.email + '</td>' +
+                            '<td class="px-4 py-2">' + value.password + '</td>' +
+                            '<td class="px-4 py-2">' + value.address + '</td>' +
+                            '<td class="px-4 py-2">' + value.phno + '</td>' +
+                            '<td class="px-4 py-2">' + value.yearOfad + '</td>' +
+                            '<td class="px-4 py-2">' + value.yearOFJoining + '</td>' +
+                            '<td class="px-4 py-2">' + value.gender + '</td>' +
+                            '<td class="px-4 py-2">' + value.dob + '</td>' +
+                            '<td class="px-4 py-2">' + value.rolefk + '</td>' +
+                           

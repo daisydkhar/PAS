@@ -3,27 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Userdata;
+use App\Models\User;
 
 class Logincontroller extends Controller
 {
     //
     public function login(Request $request){
-
+        
         $username=$request->input('username');
         $password=$request->input('password');
 
 
-        $userob= Userdata::where('email',$username)->where('password',$password)->first(); 
+        $userob= User::where('email',$username)->where('password',$password)->first(); 
 
         if ($userob) {    
 
             // Redirect based on the user's type fetched from the database
-            if ($userob->type === 'student') {
+            if ($userob->rolefk === 1) {
+                // dd($userob);
                 return view('student');
-            } elseif ($userob->type === 'teacher') {
+            } elseif ($userob->rolefk === 2) {
                 return view('teacher');
-            }elseif ($userob->type === 'admin') {
+            }elseif ($userob->rolefk === 3) {
                 return view('admin');
 
             } else {
