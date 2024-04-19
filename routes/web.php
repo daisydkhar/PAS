@@ -67,7 +67,9 @@ Route::post('/departmentdata', [Admincontroller::class,'deptdata'])->name('depar
 Route::post('/coursedata', [Admincontroller::class,'coursedata'])->name('coursedata.submit');
 Route::post('/userdata', [Admincontroller::class, 'userdata'])->name('userdata.submit');
 
-
+//for edit or update department 
+Route::get('/edit-department/{id}', [Admincontroller::class, 'editDept']);
+Route::put('/update-department/{id}', [Admincontroller::class, 'updateDept']);
 
 
 

@@ -105,6 +105,47 @@ class Admincontroller extends Controller
                 '$userdata' => $userData,
             ]);
         }
+//to fill  the form  with  data to be edited
+        public function editDept($id){
+            $deptupdate = Department::find($id);
+            if($deptupdate){
+                return response()->json([
+                    'status'=>200,
+                    'departmentdata'=>$deptupdate,
+                    //'departmentId' => $id,
+                ]);
+            }
+            else{
+                return response()->json([
+                    'status'=>404,
+                    'message'=>"Failed to update department: Department not found.",
+                ]);
+            }
+        }
+
+        public function  updateDept(Request $request,$id){
+
+            $deptupdate = Department::find($id);
+            if($deptupdate){
+                
+                $dept->deptname=$request->input('dept_name');
+                $dept->hod=$request->input('HOD_ofdept');
+                $dept->update();
+
+                return response()->json([
+                    'status'=>200,
+                    'message'=>"Department updated successfully.",
+                ]);
+            }
+            else{
+                return response()->json([
+                    'status'=>404,
+                    'message'=>"Failed to update department: Department not found.",
+                ]);
+            }
+
+
+        }
         
 
     }
