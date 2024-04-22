@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -416,4 +414,4 @@ $(document).on('click','.edit_dept',function(e){
         
 </body>
 </html>
->>>>>>> 8870bc8 (updating...)
+
